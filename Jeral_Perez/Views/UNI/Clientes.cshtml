@@ -1,0 +1,210 @@
+﻿
+@model List<Jeral_Perez.Models.ClientePrestamo>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+
+<div class="alert-dark">
+    <h1 class="text-center table-bordered ">Listado de Clientes</h1>
+</div>
+<td colspan="6">
+    @*<input id="buscar" type="text" onkeyup="searchTable()" class="form-control" placeholder="Buscar Clientes" />*@
+    <div class="inner-addon right-addon">
+        @*<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">*@
+        <i class="glyphicon glyphicon-search"></i>
+        <input id="buscar" type="text" onkeyup="searchTable()" class="form-control" placeholder="Escribe un nombre">
+    </div>
+</td>
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    #buscar {
+        background-image: url('/css/searchicon.png');
+        background-position: 10px 10px;
+        background-repeat: no-repeat;
+        width: 100%;
+        font-size: 16px;
+        padding: 12px 20px 12px 40px;
+        border: 1px solid #ddd;
+        margin-bottom: 12px;
+    }
+
+    #Clientes {
+        border-collapse: collapse;
+        width: 100%;
+        border: 1px solid #ddd;
+        font-size: 18px;
+    }
+
+        #Clientes th, #Clientes td {
+            text-align: left;
+            padding: 12px;
+        }
+
+        #Clientes tr.header_fijo {
+            border-bottom: 1px solid #ddd;
+        }
+
+        #Clientes tr.header_fijo, #Clientes tr:hover {
+            background-color: #f1f1f1;
+        }
+
+    thead tr th {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        background-color: #ffffff;
+    }
+
+    .inner-addon {
+        position: relative;
+    }
+
+        .inner-addon .glyphicon {
+            position: absolute;
+            padding: 10px;
+            pointer-events: none;
+        }
+
+    .left-addon .glyphicon {
+        left: 0px;
+    }
+
+
+    .left-addon input {
+        padding-left: 30px;
+    }
+
+</style>
+
+<div style="overflow-y: scroll; height: 400px">
+    <table id="Clientes" class="table table-bordered header_fijo" style="background-color:darkcyan" overflow="scroll">
+
+        <thead class="thead-dark" id="tableheader">
+            <tr>
+                <th>
+                    Cliente
+                </th>
+                <th>
+                    Cédula
+                </th>
+                <th>
+                    Dirección
+                </th>
+                <th>
+                    Préstamo
+                </th>
+                <th>
+                    Saldo
+                </th>
+                @*<th>
+                    Deuda
+                </th>*@
+            </tr>
+        </thead>
+        @*<script language="JavaScript" src="buscartabla/site.js"</script>*@
+
+        <tbody>
+            @{
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Nombre</td>
+                        <td>@item.Cedula</td>
+                        <td>@item.Direccion</td>
+                        <td>@item.Monto</td>
+                        <td>@item.Saldo</td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+    <script>
+        function searchTable() {
+            var input, filter, table, tr, td, i;
+            input = document.getElementById("buscar");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("Clientes");
+            tr = table.getElementsByTagName("tr");
+
+            // Loop through all table rows, and hide those who don't match the search query
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td");
+                for (j = 0; j < td.length; j++) {
+                    let tdata = td[j];
+                    if (tdata) {
+                        if (tdata.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                            tr[i].style.display = "";
+                            break;
+                        } else {
+                            tr[i].style.display = "none";
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</div>
+<h1></h1>
+
+<div class="container">
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Nuevo</button>
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h6 class="modal-title">Registrar Nuevo Cliente</h6>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="inputName">Nombres</label>
+                                <input type="text" class="form-control" id="inputName" placeholder="Nombres">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="inputName">Apellidos</label>
+                                <input type="text" class="form-control" id="inputName" placeholder="Apellidos">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6"
+                                <label for="inputcedula">Cédula de Identidad</label>
+                                <input type="text" class="form-control" id="inputcedula" placeholder="Identificación">
+                            </div>
+                            <div class="form-group col-md-6"
+                                <label for="inputtelefono">Teléfono</label>
+                                <input type="text" class="form-control" id="inputtelefono" placeholder="Teléfono">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputAddress">Dirección</label>
+                            <input type="text" class="form-control" id="inputAddress" placeholder="Ingrese la Dirección Domiciliar">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="selectsexo">Sexo:</label>
+                            <select class="form-control" id="selectsexo">
+                                <option>Seleccione</option>
+                                <option>Masculino</option>
+                                <option>Femenino</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-success">Guardar</button>
+                    </form>
+                </div>
+                @*<div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>*@
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@*<hr />
+    @DateTime.Now.ToShortDateString()*@

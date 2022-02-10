@@ -61,7 +61,7 @@ namespace Jeral_Perez.Controllers
         {
             return View("Postgrado");
         }
-        public IActionResult Usuarios()
+        public IActionResult AgregarClientes()
         {
             return View();
         }

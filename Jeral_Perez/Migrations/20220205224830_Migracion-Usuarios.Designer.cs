@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Jeral_Perez.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    [Migration("20220205224830_Migracion-Usuarios")]
-    partial class MigracionUsuarios
+    [Migration("20220205224830_Migracion-Clientes")]
+    partial class MigracionClientes
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -65,7 +65,7 @@ namespace Jeral_Perez.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Usuarios");
+                    b.ToTable("Clientes");
                 });
 #pragma warning restore 612, 618
         }

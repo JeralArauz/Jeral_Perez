@@ -8,14 +8,55 @@
 
 <h1>Bienvenidos sean siempre a la sala del tiempo.</h1>
 
-<div class="row">
-    <div>
-        <a class="btn btn-success" asp-controller="UNI" asp-action="Clientes">Ver Clientes</a>
-    </div>
-    <div>
-        <a class="btn btn-primary" asp-controller="UNI" asp-action="Pagos">Historial de Pagos</a>
-    </div>
 
+@*<div class="card">
+    <div class="card-header">
+        CrediGestión
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">Listado de Clientes</h5>
+        <p class="card-text">Para ver listado de clientes activos, dirigirse al enlace de abajo.</p>
+        <a class="btn btn-primary" asp-controller="UNI" asp-action="Clientes">Ver Clientes</a>
+    </div>
+</div>*@
+
+<div class="row">
+    <div class="col-sm-6">
+        <div class="card mb-3" style="max-width: 540px; height:300px">
+            <div class="row no-gutters">
+                <div class="col-md-4">
+                    <img src="~/Images/Clientes.jpg" class="card-img" alt="...">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body text-info">
+                        <h5 class="card-title">Listado de Clientes Registrados</h5>
+                        <p class="card-text">Dirigirse al enlace para visualizar los clientes activos con los que dispone su negocio, además, puede registrar uno nuevo.</p>
+                        <a class="btn btn-info" asp-controller="UNI" asp-action="Clientes">Ver Clientes</a>
+                        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="card mb-3" style="max-width: 540px; height: 300px">
+            <div class="row no-gutters">
+                <div class="col-md-4">
+                    <img src="~/Images/Pagos.jpg" class="card-img" alt="...">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body  text-success">
+                        <h5 class="card-title">Listado de Pagos Recibidos</h5>
+                        <p class="card-text">En el enlace siguientes puede contemplar los pagos o abonos recibidos por parte de sus clientes.</p>
+                        <a class="btn btn-success" asp-controller="UNI" asp-action="Pagos">Ver Pagos</a>
+                        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+
 
 

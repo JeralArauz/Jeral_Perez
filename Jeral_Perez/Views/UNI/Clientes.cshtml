@@ -109,18 +109,18 @@
         @*<script language="JavaScript" src="buscartabla/site.js"</script>*@
 
         <tbody>
-           @* @{
-                foreach (var item in Model)
+            @{
+                foreach (var cliente in Model)
                 {
                     <tr>
-                        <td>@item.Nombre</td>
-                        <td>@item.Cedula</td>
-                        <td>@item.Direccion</td>
-                        <td>@item.Monto</td>
-                        <td>@item.Saldo</td>
+                        <td>@cliente.Nombres</td>
+                        <td>@cliente.Apellidos</td>
+                        <td>@cliente.Cedula</td>
+                        <td>@cliente.Direccion</td>
+                        <td>@cliente.FechaReg</td>
                     </tr>
                 }
-            }*@
+            }
         </tbody>
     </table>
     <script>

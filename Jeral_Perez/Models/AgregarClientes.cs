@@ -33,5 +33,6 @@ namespace Jeral_Perez.Models
 
         [StringLength(50)]
         public string UserReg { get; set; }
+
     }
 }

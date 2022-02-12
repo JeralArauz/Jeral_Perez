@@ -9,8 +9,8 @@ namespace Jeral_Perez.Data
         {
 
         }
-        public DbSet<Usuarios> Usuarios { get; set; }
         public DbSet<Cliente> Clientes { get; set; }
         public DbSet<Prestamo> Prestamo { get; set; }
+        public DbSet<Pagos> Pagos { get; set; }
     }
 }

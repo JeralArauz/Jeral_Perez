@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Jeral_Perez.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    [Migration("20220212211147_Prestamo")]
-    partial class Prestamo
+    [Migration("20220212214434_Pagos")]
+    partial class Pagos
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -68,6 +68,34 @@ namespace Jeral_Perez.Migrations
                     b.ToTable("Clientes");
                 });
 
+            modelBuilder.Entity("Jeral_Perez.Models.Pagos", b =>
+                {
+                    b.Property<int?>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("FechaPago")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("IdPago")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdPrestamo")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("MontoPagado")
+                        .HasColumnType("decimal(12,2)");
+
+                    b.Property<decimal>("Saldo")
+                        .HasColumnType("decimal(12,2)");
+
+                    b.Property<string>("UserReg")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Pagos");
+                });
+
             modelBuilder.Entity("Jeral_Perez.Models.Prestamo", b =>
                 {
                     b.Property<int>("Id")
@@ -75,10 +103,16 @@ namespace Jeral_Perez.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Estado")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("FechaReg")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("IdCliente")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Interes")
                         .HasColumnType("int");
 
                     b.Property<decimal>("Monto")
@@ -100,51 +134,13 @@ namespace Jeral_Perez.Migrations
                     b.ToTable("Prestamo");
                 });
 
-            modelBuilder.Entity("Jeral_Perez.Models.Usuarios", b =>
+            modelBuilder.Entity("Jeral_Perez.Models.Pagos", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Apellidos")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(100)")
-                        .HasMaxLength(100);
-
-                    b.Property<string>("Cedula")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(100)")
-                        .HasMaxLength(100);
-
-                    b.Property<string>("Direccion")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(500)")
-                        .HasMaxLength(500);
-
-                    b.Property<DateTime>("FechaReg")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Nombres")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(100)")
-                        .HasMaxLength(100);
-
-                    b.Property<string>("Sexo")
-                        .HasColumnType("nvarchar(20)")
-                        .HasMaxLength(20);
-
-                    b.Property<string>("Telefono")
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
-
-                    b.Property<string>("UserReg")
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Usuarios");
+                    b.HasOne("Jeral_Perez.Models.Prestamo", "Prestamo")
+                        .WithMany()
+                        .HasForeignKey("Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Jeral_Perez.Models.Prestamo", b =>

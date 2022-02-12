@@ -20,7 +20,12 @@ namespace Jeral_Perez.Models
         public decimal Monto { get; set; }
 
         [Required]
+        public int Interes { get; set; }
+
+        [Required]
         public int Plazo { get; set; }
+
+        public string Estado { get; set; }
 
         [Column(TypeName = "decimal(12,2)")]
         public decimal Saldo { get; set; }

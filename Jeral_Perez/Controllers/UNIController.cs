@@ -3,60 +3,46 @@ using Jeral_Perez.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
+using Jeral_Perez.Data;
+using Microsoft.Extensions.Logging;
+using System.Linq;
 
 namespace Jeral_Perez.Controllers
 {
     public class UNIController : Controller
     {
+        private readonly ILogger<UNIController> _logger;
+        private readonly MyDbContext _context;
+
+
+        public UNIController(ILogger<UNIController> logger, MyDbContext context)
+        {
+            _logger = logger;
+            _context = context;
+        }
+
         public IActionResult Index()
         {
             return View();
         }
+
+        public IActionResult RegistrarClienteNew(Cliente cliente)
+        {
+            cliente.FechaReg= DateTime.Now;
+            _context.Clientes.Add(cliente);
+            _context.SaveChanges(); 
+           return RedirectToAction("Clientes");
+        }
         public IActionResult Clientes()
         {
-            //SqlConnection Conexion = new SqlConnection("server = DESKTOP-LN2IU17; database = Jeral_Perez; integrated security = true");
-            //Conexion.Open();
-            //string cadena = "select C.Nombres+' '+C.Apellidos as NombreCompleto, C.Cedula, C.Direccion, convert(int,P.Monto) as Monto, convert(int,P.Saldo) as Saldo from TblClientes C left join TblPrestamos P on C.IdCliente = P.IdCliente";
-            //SqlCommand comando = new SqlCommand(cadena, Conexion);
-            //SqlDataReader Registros = comando.ExecuteReader();
-            //List<ClientePrestamo> cliente = new List<ClientePrestamo>();
-            //while (Registros.Read())
-            //{
-            //    cliente.Add(new ClientePrestamo
-            //    {
-            //        Nombre = Registros["NombreCompleto"].ToString(),
-            //        Cedula = Registros["Cedula"].ToString(),
-            //        Direccion = Registros["Direccion"].ToString(),
-            //        Monto = Registros["Monto"].ToString(),
-            //        Saldo = Registros["Saldo"].ToString()
-            //    });
-            //}
-            //Conexion.Close();
-            //return View(cliente);
-            return View();
+            List<Cliente> clientes = _context.Clientes.ToList();
+            return View(clientes);
         }
 
         public IActionResult Pagos()
         {
-            //SqlConnection Conexion = new SqlConnection("server = DESKTOP-LN2IU17; database = Jeral_Perez; integrated security = true");
-            //Conexion.Open();
-            //string cadena = "select C.Nombres+' '+C.Apellidos as NombreCompleto, convert(int,P.Monto) as Prestamo, convert(int,PA.MontoPagado) as MontoPagado, PA.FechaPago, convert(int,PA.SaldoPago) as Saldo from TblClientes C join TblPrestamos P on C.IdCliente = P.IdCliente join TblPagos PA on P.IdPrestamo = PA.IdPrestamo order by NombreCompleto, FechaPago";
-            //SqlCommand comando = new SqlCommand(cadena, Conexion);
-            //SqlDataReader Registros = comando.ExecuteReader();
-            //List<Pagos> Pagos = new List<Pagos>();
-            //while (Registros.Read())
-            //{
-            //    Pagos.Add(new Pagos
-            //    {
-            //        NombreCompleto = Registros["NombreCompleto"].ToString(),
-            //        Prestamo = Registros["Prestamo"].ToString(),
-            //        MontoPagado = (int)Registros["MontoPagado"],
-            //        FechaPago = Registros["FechaPago"].ToString(),
-            //        Saldo = (int)Registros["Saldo"]
-            //    });
-            //}
-            //Conexion.Close();
-            //return View(Pagos);
+            
             return View();
         }
         public IActionResult Test()

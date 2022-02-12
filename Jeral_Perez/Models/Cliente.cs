@@ -1,19 +1,37 @@
-﻿namespace Jeral_Perez.Models
+﻿using System;
+using System.ComponentModel.DataAnnotations;
+
+namespace Jeral_Perez.Models
 {
     public class Cliente
     {
-        public string Nombre { get; set; }
+        [Key]
+        public int IdCliente { get; set; }
+
+        [StringLength(100)]
+        [Required(ErrorMessage = "El campo NOMBRES es requerido")]
+        public string Nombres { get; set; }
+        [StringLength(100)]
+        [Required(ErrorMessage = "El campo APELLIDOS es requerido")]
+        public string Apellidos { get; set; }
+
+        [StringLength(100)]
+        [Required(ErrorMessage = "El campo CEDULA es requerido")]
         public string Cedula { get; set; }
-        public string Direccion { get; set;}
-        public string Telefono { get; set;}
-        public int Edad { get; set;}
-    }
-    public class ClientePrestamo
-    {
-        public string Nombre { get; set; }
-        public string Cedula { get; set; }
+
+        [StringLength(500)]
+        [Required(ErrorMessage = "El campo DIRECCION es requerido")]
         public string Direccion { get; set; }
-        public string Monto { get; set; }
-        public string Saldo { get; set; }
+
+        [StringLength(50)]
+        public string Telefono { get; set; }
+
+        [StringLength(20)]
+        public string Sexo { get; set; }
+
+        public DateTime FechaReg { get; set; }
+
+        [StringLength(50)]
+        public string UserReg { get; set; }
     }
 }

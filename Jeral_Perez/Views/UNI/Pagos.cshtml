@@ -108,7 +108,7 @@
         @*<script language="JavaScript" src="buscartabla/site.js"</script>*@
 
         <tbody>
-            @{
+            @*@{
                 foreach (var item in Model)
                 {
                     <tr>
@@ -119,9 +119,10 @@
                         <td>@item.Saldo</td>
                     </tr>
                 }
-            }
+            }*@
         </tbody>
     </table>
+
     <script>
         function searchTable() {
             var input, filter, table, tr, td, i;
@@ -148,4 +149,7 @@
         }
     </script>
 </div>
+    <div>
+    <a class="btn btn-success" asp-controller="UNI" asp-action="NuevoPago">Nuevo Pago</a>
+    </div>
 <h1></h1>

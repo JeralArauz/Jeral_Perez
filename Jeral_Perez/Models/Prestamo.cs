@@ -28,6 +28,9 @@ namespace Jeral_Perez.Models
         public string Estado { get; set; }
 
         [Column(TypeName = "decimal(12,2)")]
+        public decimal TotalDeuda { get; set; }
+
+        [Column(TypeName = "decimal(12,2)")]
         public decimal Saldo { get; set; }
 
         public string UserReg { get; set; }

@@ -1,0 +1,51 @@
+﻿
+<h1>Registrar Nuevo Prestamo</h1>
+
+<form asp-action="GuardarPrestamo">
+    <div class="row">
+
+
+        <div class="col-md-6">
+            <label for="selectcliente">Cliente:</label>
+            <select class="form-control" name="IdCliente" id="selectsexo">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+            </select>
+        </div>
+        <div class="col-sm-6">
+
+            <label class="col-form-label">Monto</label>
+            <input class="form-control" name="Monto" type="text" placeholder="Monto" />
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-6">
+
+            <label class="col-form-label">Interés (%)</label>
+            <input class="form-control" name="Interes" type="text" placeholder="Interés" />
+
+        </div>
+        <div class="col-sm-6">
+
+            <label class="col-form-label">Plazo (Meses)</label>
+            <input class="form-control" name="Plazo" type="text" placeholder="Plazo del Préstamo" />
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+
+        </div>
+        <div class="col-md-6">
+            <div>
+                <input style="margin:10px" type="submit" asp-action="Prestamos" value="Cancelar" class="btn btn-secondary mx-auto float-right">
+                <input style="margin:10px" type="submit" value="Guardar" class="btn btn-success float-right">
+            </div>
+        </div>
+    </div>
+
+</form>
+<br />

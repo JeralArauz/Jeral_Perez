@@ -1,0 +1,150 @@
+﻿
+@model List<Jeral_Perez.Models.Prestamo>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="alert-dark">
+    <h1 class="text-center table-bordered ">Listado de Prestamos</h1>
+</div>
+<td colspan="6">
+    @*<input id="buscar" type="text" onkeyup="searchTable()" class="form-control" placeholder="Buscar Clientes" />*@
+    <div class="inner-addon right-addon">
+        @*<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">*@
+        <i class="glyphicon glyphicon-search"></i>
+        <input id="buscar" type="text" onkeyup="searchTable()" class="form-control" placeholder="Buscar">
+    </div>
+</td>
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    #buscar {
+        background-image: url('/css/searchicon.png');
+        background-position: 10px 10px;
+        background-repeat: no-repeat;
+        width: 100%;
+        font-size: 16px;
+        padding: 12px 20px 12px 40px;
+        border: 1px solid #ddd;
+        margin-bottom: 12px;
+    }
+
+    #Clientes {
+        border-collapse: collapse;
+        width: 100%;
+        border: 1px solid #ddd;
+        font-size: 18px;
+    }
+
+        #Clientes th, #Clientes td {
+            text-align: left;
+            padding: 12px;
+        }
+
+        #Clientes tr.header_fijo {
+            border-bottom: 1px solid #ddd;
+        }
+
+        #Clientes tr.header_fijo, #Clientes tr:hover {
+            background-color: #f1f1f1;
+        }
+
+    thead tr th {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        background-color: #ffffff;
+    }
+
+    .inner-addon {
+        position: relative;
+    }
+
+        .inner-addon .glyphicon {
+            position: absolute;
+            padding: 10px;
+            pointer-events: none;
+        }
+
+    .left-addon .glyphicon {
+        left: 0px;
+    }
+
+
+    .left-addon input {
+        padding-left: 30px;
+    }
+</style>
+
+<div class="table-responsive" @*style="overflow-y: scroll; height: 400px"*@>
+    <table id="Prestamos" class="table table-bordered header_fijo" style="background-color:darkcyan" overflow="scroll">
+
+        <thead class="thead-dark" id="tableheader">
+            <tr>
+                <th>
+                    Cliente
+                </th>
+                <th>
+                    Monto
+                </th>
+                <th>
+                    Interés (%)
+                </th>
+                <th>
+                    Plazo (Meses)
+                </th>
+                <th>
+                    Saldo
+                </th>
+
+            </tr>
+        </thead>
+
+        <tbody>
+            @{
+                foreach (var prestamo in Model)
+                {
+                    <tr>
+                        <td>@prestamo.Cliente</td>
+                        <td>@prestamo.Monto</td>
+                        <td>@prestamo.Interes</td>
+                        <td>@prestamo.Plazo</td>
+                        <td>@prestamo.Saldo</td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+    <script>
+        function searchTable() {
+            var input, filter, table, tr, td, i;
+            input = document.getElementById("buscar");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("Prestamos");
+            tr = table.getElementsByTagName("tr");
+
+            // Loop through all table rows, and hide those who don't match the search query
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td");
+                for (j = 0; j < td.length; j++) {
+                    let tdata = td[j];
+                    if (tdata) {
+                        if (tdata.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                            tr[i].style.display = "";
+                            break;
+                        } else {
+                            tr[i].style.display = "none";
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</div>
+<h1></h1>
+
+<div>
+    <a class="btn btn-success" asp-controller="UNI" asp-action="NuevoPrestamo">Registrar Nuevo</a>
+</div>

@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Jeral_Perez.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    [Migration("20220212214434_Pagos")]
-    partial class Pagos
+    [Migration("20220215194016_JeralPerez")]
+    partial class JeralPerez
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -122,6 +122,9 @@ namespace Jeral_Perez.Migrations
                         .HasColumnType("int");
 
                     b.Property<decimal>("Saldo")
+                        .HasColumnType("decimal(12,2)");
+
+                    b.Property<decimal>("TotalDeuda")
                         .HasColumnType("decimal(12,2)");
 
                     b.Property<string>("UserReg")

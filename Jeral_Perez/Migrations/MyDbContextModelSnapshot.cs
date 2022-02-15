@@ -122,6 +122,9 @@ namespace Jeral_Perez.Migrations
                     b.Property<decimal>("Saldo")
                         .HasColumnType("decimal(12,2)");
 
+                    b.Property<decimal>("TotalDeuda")
+                        .HasColumnType("decimal(12,2)");
+
                     b.Property<string>("UserReg")
                         .HasColumnType("nvarchar(max)");
 

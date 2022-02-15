@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Jeral_Perez.Migrations
 {
-    public partial class Pagos : Migration
+    public partial class JeralPerez : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -38,6 +38,7 @@ namespace Jeral_Perez.Migrations
                     Interes = table.Column<int>(nullable: false),
                     Plazo = table.Column<int>(nullable: false),
                     Estado = table.Column<string>(nullable: true),
+                    TotalDeuda = table.Column<decimal>(type: "decimal(12,2)", nullable: false),
                     Saldo = table.Column<decimal>(type: "decimal(12,2)", nullable: false),
                     UserReg = table.Column<string>(nullable: true),
                     FechaReg = table.Column<DateTime>(nullable: false)

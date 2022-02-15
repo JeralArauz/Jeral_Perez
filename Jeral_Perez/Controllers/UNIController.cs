@@ -26,36 +26,54 @@ namespace Jeral_Perez.Controllers
         {
             return View();
         }
-
-        public IActionResult RegistrarClienteNew(Cliente cliente)
-        {
-            cliente.FechaReg= DateTime.Now;
-            _context.Clientes.Add(cliente);
-            _context.SaveChanges(); 
-           return RedirectToAction("Clientes");
-        }
+        
         public IActionResult Clientes()
         {
             List<Cliente> clientes = _context.Clientes.ToList();
             return View(clientes);
         }
+        public IActionResult AgregarClientes()
+        {
+            return View();
+        }
+        public IActionResult RegistrarClienteNew(Cliente cliente)
+        {
+            cliente.FechaReg = DateTime.Now;
+            _context.Clientes.Add(cliente);
+            _context.SaveChanges();
+            return RedirectToAction("Clientes");
+        }
 
+        public IActionResult Prestamos()
+        {
+            List<Prestamo> prestamos = _context.Prestamo.ToList();
+            return View(prestamos);
+        }
+        public IActionResult NuevoPrestamo()
+        {
+            return View();
+        }
+        public IActionResult GuardarPrestamo(Prestamo prestamo)
+        {
+            prestamo.FechaReg = DateTime.Now;
+            prestamo.TotalDeuda = prestamo.Monto+ ((prestamo.Monto * prestamo.Interes)/100);
+            prestamo.Saldo = prestamo.TotalDeuda;
+            prestamo.Estado = "Activo";
+            _context.Prestamo.Add(prestamo);
+            _context.SaveChanges();
+            return RedirectToAction("Prestamos");
+        }
+        public IActionResult NuevoPago()
+        {
+            return View();
+        }
         public IActionResult Pagos()
         {
-            
             return View();
         }
         public IActionResult Test()
         {
             return View("Postgrado");
-        }
-        public IActionResult AgregarClientes()
-        {
-            return View();
-        }
-        public IActionResult NuevoPago()
-        {
-            return View();
         }
     }
 }

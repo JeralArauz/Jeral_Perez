@@ -101,9 +101,9 @@
                 <th>
                     Saldo
                 </th>
-                @*<th>
-                    Deuda
-                </th>*@
+                <th>
+                    Opciones
+                </th>
             </tr>
         </thead>
         @*<script language="JavaScript" src="buscartabla/site.js"</script>*@
@@ -118,6 +118,9 @@
                         <td>@cliente.Cedula</td>
                         <td>@cliente.Direccion</td>
                         <td>@cliente.FechaReg</td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new {Id = cliente.IdCliente})
+                        </td>
                     </tr>
                 }
             }

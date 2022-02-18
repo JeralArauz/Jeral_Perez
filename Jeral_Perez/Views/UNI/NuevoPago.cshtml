@@ -1,74 +1,45 @@
 ﻿
+@model List<Jeral_Perez.Models.ClientePrestamo>
+
 <h1>Registrar Nuevo Pago</h1>
-
-<div class="row">
-
-
+<form asp-action="GuardarPago">
     <div class="col-sm-6">
 
         <div>
             <label for="selectcliente">Cliente:</label>
-            <select class="form-control" id="selectcliente">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
+            <select class="form-control" name="IdPrestamo" id="selectcliente">
+                @{
+                    foreach (var Cliente in Model)
+                    {
+                        <option value="@Cliente.IdCliente">@Cliente.NombreCliente</option>
+                    }
+                }
             </select>
         </div>
-
     </div>
-    <div class="col-sm-3">
+    <div class="col-sm-6">
 
-        <label class="col-form-label">Monto Inicial del Préstamo:</label>
+        <label class="col-form-label">Deuda Inicial:</label>
         <input class="form-control" type="text" placeholder="Monto" />
 
     </div>
-    <div class="col-sm-3">
+    <div class="col-sm-6">
 
         <label class="col-form-label">Saldo Pendiente:</label>
-        <input class="form-control" type="text" placeholder="Saldo" />
+        <input class="form-control" type="text" name="Saldo" placeholder="Saldo" />
 
     </div>
-</div>
 
-<div class="row">
-           <div class="col-sm-6">
 
-            <label class ="col-form-label">Cantidad a Abonar:</label>
-            <input class="form-control" type = "text" placeholder="Ingrese la cantidad"/>
-            
-        </div>
-         @*<div class="col-sm-6">
+    <div class="col-sm-6">
 
-            <label class ="col-form-label">Dirección</label>
-            <input class="form-control" type = "text" placeholder="Ecriba la Dirección domiciliar"/>
+        <label class="col-form-label">Cantidad a Abonar:</label>
+        <input class="form-control" name="MontoPagado" type="text" placeholder="Ingrese la cantidad" />
 
-        </div>*@
     </div>
-    @*<div class="row">
-        <div class="col-sm-6">
-
-            <label class ="col-form-label">Teléfono</label>
-            <input class="form-control" type = "text" placeholder="Número Teléfono o Convencional"/>
-
-        </div>
-    <div class="col-md-6">
-                            <label for="selectsexo">Sexo:</label>
-                            <select class="form-control" id="selectsexo">
-                                <option>Seleccione</option>
-                                <option>Masculino</option>
-                                <option>Femenino</option>
-                            </select>
-     </div>
-</div>*@
-    <div class="row">
-        <div class="col-md-6">
-
-        </div>
-        <div class="col-md-6">
-            <div>
-                <input style="margin:10px" type="submit" value="Cancelar" class="btn btn-secondary mx-auto float-right">
-                <input style="margin:10px" type="submit" value="Guardar" class="btn btn-success float-right">
-            </div>
-        </div>
+    <div>
+        <input style="margin:10px" type="submit" value="Guardar" class="btn btn-success">
+        <input style="margin:10px" type="submit" asp-controller="UNI" asp-action="Pagos" value="Cancelar" class="btn btn-secondary mx-auto">
     </div>
+</form>
 <br />

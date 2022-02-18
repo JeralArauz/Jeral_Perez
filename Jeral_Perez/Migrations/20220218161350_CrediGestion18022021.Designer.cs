@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Jeral_Perez.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    [Migration("20220215194016_JeralPerez")]
-    partial class JeralPerez
+    [Migration("20220218161350_CrediGestion18022021")]
+    partial class CrediGestion18022021
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -70,14 +70,13 @@ namespace Jeral_Perez.Migrations
 
             modelBuilder.Entity("Jeral_Perez.Models.Pagos", b =>
                 {
-                    b.Property<int?>("Id")
-                        .HasColumnType("int");
+                    b.Property<int>("IdPago")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<DateTime>("FechaPago")
                         .HasColumnType("datetime2");
-
-                    b.Property<int>("IdPago")
-                        .HasColumnType("int");
 
                     b.Property<int>("IdPrestamo")
                         .HasColumnType("int");
@@ -91,14 +90,16 @@ namespace Jeral_Perez.Migrations
                     b.Property<string>("UserReg")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.HasKey("IdPago");
+
+                    b.HasIndex("IdPrestamo");
 
                     b.ToTable("Pagos");
                 });
 
             modelBuilder.Entity("Jeral_Perez.Models.Prestamo", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("IdPrestamo")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -130,7 +131,7 @@ namespace Jeral_Perez.Migrations
                     b.Property<string>("UserReg")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.HasKey("IdPrestamo");
 
                     b.HasIndex("IdCliente");
 
@@ -141,7 +142,7 @@ namespace Jeral_Perez.Migrations
                 {
                     b.HasOne("Jeral_Perez.Models.Prestamo", "Prestamo")
                         .WithMany()
-                        .HasForeignKey("Id")
+                        .HasForeignKey("IdPrestamo")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

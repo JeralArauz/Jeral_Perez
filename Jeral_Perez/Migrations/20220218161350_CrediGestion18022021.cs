@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Jeral_Perez.Migrations
 {
-    public partial class JeralPerez : Migration
+    public partial class CrediGestion18022021 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -31,7 +31,7 @@ namespace Jeral_Perez.Migrations
                 name: "Prestamo",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    IdPrestamo = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     IdCliente = table.Column<int>(nullable: false),
                     Monto = table.Column<decimal>(type: "decimal(12,2)", nullable: false),
@@ -45,7 +45,7 @@ namespace Jeral_Perez.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Prestamo", x => x.Id);
+                    table.PrimaryKey("PK_Prestamo", x => x.IdPrestamo);
                     table.ForeignKey(
                         name: "FK_Prestamo_Clientes_IdCliente",
                         column: x => x.IdCliente,
@@ -58,8 +58,8 @@ namespace Jeral_Perez.Migrations
                 name: "Pagos",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false),
-                    IdPago = table.Column<int>(nullable: false),
+                    IdPago = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     IdPrestamo = table.Column<int>(nullable: false),
                     MontoPagado = table.Column<decimal>(type: "decimal(12,2)", nullable: false),
                     Saldo = table.Column<decimal>(type: "decimal(12,2)", nullable: false),
@@ -68,14 +68,19 @@ namespace Jeral_Perez.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Pagos", x => x.Id);
+                    table.PrimaryKey("PK_Pagos", x => x.IdPago);
                     table.ForeignKey(
-                        name: "FK_Pagos_Prestamo_Id",
-                        column: x => x.Id,
+                        name: "FK_Pagos_Prestamo_IdPrestamo",
+                        column: x => x.IdPrestamo,
                         principalTable: "Prestamo",
-                        principalColumn: "Id",
+                        principalColumn: "IdPrestamo",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Pagos_IdPrestamo",
+                table: "Pagos",
+                column: "IdPrestamo");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Prestamo_IdCliente",

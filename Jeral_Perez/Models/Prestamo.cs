@@ -7,7 +7,7 @@ namespace Jeral_Perez.Models
     public class Prestamo
     {
         [Key]
-        public int Id { get; set; }
+        public int IdPrestamo { get; set; }
 
         [Required]
         public int IdCliente { get; set; }

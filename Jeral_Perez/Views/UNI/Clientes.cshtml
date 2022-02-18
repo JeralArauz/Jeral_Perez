@@ -1,5 +1,5 @@
 ﻿
-@model List<Jeral_Perez.Models.Cliente>
+@model List<Jeral_Perez.Models.ClientePrestamo>
 @{
     ViewData["Title"] = "Home Page";
 }
@@ -101,9 +101,6 @@
                 <th>
                     Saldo
                 </th>
-                <th>
-                    Opciones
-                </th>
             </tr>
         </thead>
         @*<script language="JavaScript" src="buscartabla/site.js"</script>*@
@@ -113,14 +110,11 @@
                 foreach (var cliente in Model)
                 {
                     <tr>
-                        <td>@cliente.Nombres</td>
-                        <td>@cliente.Apellidos</td>
+                        <td>@cliente.NombreCliente</td>
                         <td>@cliente.Cedula</td>
                         <td>@cliente.Direccion</td>
-                        <td>@cliente.FechaReg</td>
-                        <td>
-                            @Html.ActionLink("Edit", "Edit", new {Id = cliente.IdCliente})
-                        </td>
+                        <td>@cliente.TotalDeuda</td>
+                        <td>@cliente.Saldo</td>
                     </tr>
                 }
             }

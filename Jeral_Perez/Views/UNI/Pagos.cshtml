@@ -4,8 +4,6 @@
     ViewData["Title"] = "Home Page";
 }
 
-
-
 <div class="alert-dark">
     <h1 class="text-center table-bordered ">Listado de Pagos recibidos</h1>
 </div>
@@ -30,7 +28,7 @@
         font-size: 16px;
         padding: 12px 20px 12px 40px;
         border: 1px solid #ddd;
-        margin-bottom: 12px;
+        margin-bottom: 12px;    
     }
 
     #Pagos {
@@ -80,7 +78,7 @@
     }
 </style>
 
-<div style="overflow-y: scroll; height: 400px">
+<div class="table-responsive" @*style="overflow-y: scroll; height: 400px"*@>
     <table id="Pagos" class="table table-bordered header_fijo" style="background-color:darkcyan" overflow="scroll">
 
         <thead class="thead-dark" id="tableheader">
@@ -89,24 +87,19 @@
                     Cliente
                 </th>
                 <th>
-                    Prestamo
+                    Prestamo C$
                 </th>
                 <th>
-                    Monto Pagado
+                    Monto Pagado C$
                 </th>
                 <th>
                     Fecha Pago
                 </th>
                 <th>
-                    Saldo
+                    Saldo C$
                 </th>
-                @*<th>
-                        Deuda
-                    </th>*@
             </tr>
         </thead>
-        @*<script language="JavaScript" src="buscartabla/site.js"</script>*@
-
         <tbody>
             @{
                 foreach (var item in Model)
@@ -149,7 +142,9 @@
         }
     </script>
 </div>
-    <div>
+<h1></h1>
+
+ <div>
     <a class="btn btn-success" asp-controller="UNI" asp-action="NuevoPago">Nuevo Pago</a>
-    </div>
+ </div>
 <h1></h1>

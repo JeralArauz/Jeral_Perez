@@ -1,4 +1,4 @@
-﻿
+﻿    
 @model List<Jeral_Perez.Models.PrestamoClientes>
 @{
     ViewData["Title"] = "Home Page";
@@ -87,7 +87,7 @@
                     Cliente
                 </th>
                 <th>
-                    Monto
+                    Monto C$
                 </th>
                 <th>
                     Interés (%)
@@ -96,14 +96,12 @@
                     Plazo (Meses)
                 </th>
                 <th>
-                    Saldo
+                    Saldo C$
                 </th>
-
             </tr>
         </thead>
-
         <tbody>
-            @{
+            @{  
                 foreach (var prestamo in Model)
                 {
                     <tr>
@@ -148,3 +146,4 @@
 <div>
     <a class="btn btn-success" asp-controller="UNI" asp-action="NuevoPrestamo">Registrar Nuevo</a>
 </div>
+<h1></h1>

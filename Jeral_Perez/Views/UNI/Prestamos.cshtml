@@ -1,5 +1,5 @@
 ﻿    
-@model List<Jeral_Perez.Models.PrestamoClientes>
+@model Jeral_Perez.Models.PrestamoClientes
 @{
     ViewData["Title"] = "Home Page";
 }
@@ -104,15 +104,21 @@
             </tr>
         </thead>
         <tbody>
-            @{  
-                foreach (var prestamocliente in Model)
+            @{
+                foreach (var prestamocliente in Model.Prestamos)
                 {
                     <tr>
                         <td>
-                            
-                        </td>
-                        <td>@prestamocliente.Prestamos</td>
+                            @{
+                                var cliente = Model.Clientes.Where(a => a.IdCliente == prestamocliente.IdCliente).FirstOrDefault();
 
+                                <span>@(cliente.Nombres + " " + cliente.Apellidos)</span>
+                            }
+                        </td>
+                        <td>@prestamocliente.Monto</td>
+                        <td>@prestamocliente.Interes</td>
+                        <td>@prestamocliente.Plazo</td>
+                        <td>@prestamocliente.Saldo</td>
                         <td>
                             <a class="btn btn-info" asp-action="EditarPrestamo">Editar</a>
                             <a class="btn btn-danger" asp-action="EliminarPrestamo">Eliminar</a>

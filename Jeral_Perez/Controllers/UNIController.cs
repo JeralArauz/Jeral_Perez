@@ -29,26 +29,8 @@ namespace Jeral_Perez.Controllers
         
         public IActionResult Clientes()
         {
-            //List<Cliente> clientes = _context.Clientes.ToList();
-            List<ClientePrestamo> prestamos = new List<ClientePrestamo>();
-            string Cadena = "Server=.;Database=Jeral_Perez;Trusted_Connection=True;MultipleActiveResultSets=true";
-            SqlConnection conn = new SqlConnection(Cadena);
-            conn.Open();
-            string consulta = "select * from [Jeral_Perez].[dbo].[VistaClientesPrestamo]";
-            SqlCommand cmd = new SqlCommand(consulta, conn);
-            SqlDataReader Reader = cmd.ExecuteReader();
-            while (Reader.Read())
-            {
-                ClientePrestamo clientes = new ClientePrestamo();
-                clientes.NombreCliente = Convert.ToString(Reader["Cliente"]);
-                clientes.Cedula = Convert.ToString(Reader["Cedula"]);
-                clientes.Direccion = Convert.ToString(Reader["Direccion"]);
-                clientes.TotalDeuda = (decimal)Reader["TotalDeuda"];
-                clientes.Saldo = (decimal)Reader["Saldo"];
-                prestamos.Add(clientes);
-            }
-            conn.Close();
-            return View(prestamos);
+            List<Cliente> clientes = _context.Clientes.ToList();
+            return View(clientes);
         }
         public IActionResult AgregarClientes()
         {
@@ -62,35 +44,55 @@ namespace Jeral_Perez.Controllers
             _context.SaveChanges();
             return RedirectToAction("Clientes");
         }
+        public IActionResult EditarCliente(int IdCliente)
+        {
+            Cliente cliente = _context.Clientes.Where(c => c.IdCliente == IdCliente).FirstOrDefault();
+            return View(cliente);
+        }
+        public IActionResult ActualizarCliente(Cliente cliente)
+        {
+            Cliente clienteactual = _context.Clientes
+                .Where(a=> a.IdCliente == cliente.IdCliente).FirstOrDefault();
 
+            clienteactual.Nombres = cliente.Nombres;
+            clienteactual.Apellidos = cliente.Apellidos;
+            clienteactual.Cedula = cliente.Cedula;
+            clienteactual.Direccion = cliente.Direccion;
+            clienteactual.Telefono = cliente.Telefono;
+            clienteactual.Sexo = cliente.Sexo;
+
+            List<Cliente> clientes = _context.Clientes.ToList();
+
+            return View("Clientes", clientes);
+        }
+
+        public IActionResult EliminarCliente(int IdCliente)
+        {
+            List<Prestamo> prestamos = _context.Prestamo.Where(a => a.IdCliente == IdCliente).ToList();
+            if(prestamos != null)
+            _context.Prestamo.RemoveRange(prestamos);
+
+            Cliente clienteactual = _context.Clientes
+                .Where(a => a.IdCliente == IdCliente).FirstOrDefault();
+            if(clienteactual != null)
+            _context.Remove(clienteactual);
+
+            _context.SaveChanges();
+
+            List<Cliente> clientes = _context.Clientes.ToList();
+            return View("Clientes", clientes);
+        }
         public IActionResult Prestamos()
         {
-            //List<Prestamo> prestamos = _context.Prestamo.ToList();
-            List<PrestamoClientes> prestamos = new List<PrestamoClientes>();
-            string Cadena = "Server=.;Database=Jeral_Perez;Trusted_Connection=True;MultipleActiveResultSets=true";
-            SqlConnection conn = new SqlConnection(Cadena);
-            conn.Open();
-            string consulta = "select * from [Jeral_Perez].[dbo].[VistaPrestamoClientes]";
-            SqlCommand cmd = new SqlCommand(consulta, conn);
-            SqlDataReader Reader = cmd.ExecuteReader();
-            while (Reader.Read())
-            {
-                PrestamoClientes prestamo = new PrestamoClientes();
-                prestamo.Cliente = Convert.ToString(Reader["Cliente"]);
-                prestamo.Monto = (decimal)Reader["Monto"];
-                prestamo.Interes = (int)Reader["Interes"];
-                prestamo.Plazo = (int)Reader["Plazo"];
-                prestamo.Saldo = (decimal)Reader["Saldo"];
-                prestamos.Add(prestamo);
-            }
-            conn.Close();
-
-            return View(prestamos);
+            PrestamoClientes Prestamocliente = new PrestamoClientes();
+            Prestamocliente.Clientes = _context.Clientes.ToList();
+            Prestamocliente.Prestamos = _context.Prestamo.ToList();
+            return View(Prestamocliente);
         }
         public IActionResult NuevoPrestamo()
         {
             List<ClientePrestamo> clientes = new List<ClientePrestamo>();
-            string Cadena = "Server=.;Database=Jeral_Perez;Trusted_Connection=True;MultipleActiveResultSets=true";
+            string Cadena = "Server=DESKTOP-LN2IU17;Database=Jeral_Perez;Trusted_Connection=True;MultipleActiveResultSets=true";
             SqlConnection conn = new SqlConnection(Cadena);
             conn.Open();
             string consulta = "select IdCliente, Nombres+' '+Apellidos as Cliente from [Jeral_Perez].[dbo].[Clientes]";
@@ -118,10 +120,14 @@ namespace Jeral_Perez.Controllers
             _context.SaveChanges();
             return RedirectToAction("Prestamos");
         }
+        public IActionResult EditarPrestamo()
+        {
+            return View();
+        }
         public IActionResult NuevoPago()
         {
             List<ClientePrestamo> clientes = new List<ClientePrestamo>();
-            string Cadena = "Server=.;Database=Jeral_Perez;Trusted_Connection=True;MultipleActiveResultSets=true";
+            string Cadena = "Server=DESKTOP-LN2IU17;Database=Jeral_Perez;Trusted_Connection=True;MultipleActiveResultSets=true";
             SqlConnection conn = new SqlConnection(Cadena);
             conn.Open();
             string consulta = "select p.IdPrestamo, C.Nombres+' '+C.Apellidos as Cliente from [Jeral_Perez].[dbo].[Clientes] C JOIN Prestamo P on c.IdCliente = p.IdCliente";
@@ -140,7 +146,7 @@ namespace Jeral_Perez.Controllers
         public IActionResult Pagos()
         {
             List<PagosCliente> Pagos = new List<PagosCliente>();
-            string Cadena = "Server=.;Database=Jeral_Perez;Trusted_Connection=True;MultipleActiveResultSets=true";
+            string Cadena = "Server=DESKTOP-LN2IU17;Database=Jeral_Perez;Trusted_Connection=True;MultipleActiveResultSets=true";
             SqlConnection conn = new SqlConnection(Cadena);
             conn.Open();
             string consulta = "SELECT C.Nombres+' '+C.Apellidos AS Cliente, p.TotalDeuda, pa.MontoPagado, Convert(varchar,pa.FechaPago, 103) as FechaPago, Pa.Saldo FROM Pagos Pa JOIN Prestamo P ON PA.IdPrestamo = P.IdPrestamo JOIN Clientes C ON P.IdCliente = C.IdCliente";

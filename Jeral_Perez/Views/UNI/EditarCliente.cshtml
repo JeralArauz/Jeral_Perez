@@ -1,0 +1,79 @@
+﻿
+@model Jeral_Perez.Models.Cliente
+
+<h1>Actualizar Información del Cliente</h1>
+
+<form asp-action="ActualizarCliente">
+<div class="row">
+
+
+        <div class="col-sm-6">
+
+            <label class ="col-form-label">Nombres</label>
+            <input class="form-control" name="Nombres" type = "text" value="@Model.Nombres" placeholder="Nombres"/>
+            <input type="hidden" name="IdCliente" value="@Model.IdCliente"/>
+        </div>
+        <div class="col-sm-6">
+
+            <label class ="col-form-label">Apellidos</label>
+            <input class="form-control" name="Apellidos"  type = "text" value="@Model.Apellidos" placeholder="Apellidos"/>
+
+        </div>
+</div>
+
+<div class="row">
+           <div class="col-sm-6">
+
+            <label class ="col-form-label">Cédula</label>
+            <input class="form-control" name="Cedula" type = "text" value="@Model.Cedula" placeholder="Número de Identificación"/>
+            
+        </div>
+         <div class="col-sm-6">
+
+            <label class ="col-form-label">Dirección</label>
+            <input class="form-control" name="Direccion" type = "text" value ="@Model.Direccion" placeholder="Ecriba la Dirección domiciliar"/>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+
+            <label class ="col-form-label">Teléfono</label>
+            <input class="form-control" name="Telefono" type = "text" value="@Model.Telefono" placeholder="Número Teléfono o Convencional"/>
+
+        </div>
+    <div class="col-md-6">
+                            <label for="selectsexo">Sexo:</label>
+                            <select class="form-control" name="Sexo" id="selectsexo">
+                                
+                                @{
+                                    if (Model.Sexo == "M")
+                                    {
+                                        <option value="M" selected >Masculino</option> 
+                                        <option value="F" >Femenino</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="M">Masculino</option> 
+                                        <option value="F" selected>Femenino</option>
+                                    }
+                                }
+                                
+                            </select>
+     </div>
+
+</div>
+    <div class="row">
+        <div class="col-md-6">
+
+        </div>
+        <div class="col-md-6">
+            <div>
+                <input style="margin:10px" type="submit" asp-controller="UNI" asp-action="Clientes" value="Cancelar" class="btn btn-secondary mx-auto float-right">
+                <input style="margin:10px" type="submit" value="Actualizar" class="btn btn-success float-right">
+            </div>
+        </div>
+    </div>
+
+</form>
+<br />

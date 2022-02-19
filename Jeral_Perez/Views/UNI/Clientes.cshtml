@@ -1,5 +1,5 @@
 ﻿
-@model List<Jeral_Perez.Models.ClientePrestamo>
+@model List<Jeral_Perez.Models.Cliente>
 @{
     ViewData["Title"] = "Home Page";
 }
@@ -87,7 +87,10 @@
         <thead class="thead-dark" id="tableheader">
             <tr>
                 <th>
-                    Cliente
+                    Nombres
+                </th>
+                <th>
+                    Apellidos
                 </th>
                 <th>
                     Cédula
@@ -96,25 +99,31 @@
                     Dirección
                 </th>
                 <th>
-                    Préstamo C$
+                    Sexo
+                </th>
+                 <th>
+                    Teléfono
                 </th>
                 <th>
-                    Saldo C$
+                    Opciones
                 </th>
             </tr>
         </thead>
-        @*<script language="JavaScript" src="buscartabla/site.js"</script>*@
-
         <tbody>
             @{
                 foreach (var cliente in Model)
                 {
                     <tr>
-                        <td>@cliente.NombreCliente</td>
+                        <td>@cliente.Nombres</td>
+                        <td>@cliente.Apellidos</td>
                         <td>@cliente.Cedula</td>
                         <td>@cliente.Direccion</td>
-                        <td>@cliente.TotalDeuda</td>
-                        <td>@cliente.Saldo</td>
+                        <td>@cliente.Sexo</td>
+                        <td>@cliente.Telefono</td>
+                        <td>
+                            <a class="btn btn-info" asp-action="EditarCliente" asp-route-IdCliente="@cliente.IdCliente" >Editar</a>
+                            <a class="btn btn-danger" asp-action="EliminarCliente" asp-route-IdCliente="@cliente.IdCliente">Eliminar</a>
+                        </td>
                     </tr>
                 }
             }
@@ -127,8 +136,6 @@
             filter = input.value.toUpperCase();
             table = document.getElementById("Clientes");
             tr = table.getElementsByTagName("tr");
-
-            // Loop through all table rows, and hide those who don't match the search query
             for (i = 0; i < tr.length; i++) {
                 td = tr[i].getElementsByTagName("td");
                 for (j = 0; j < td.length; j++) {

@@ -14,4 +14,5 @@ namespace Jeral_Perez.Models
         public decimal TotalDeuda { get; set; }
         public decimal Saldo { get; set; }
     }
+
 }

@@ -98,18 +98,25 @@
                 <th>
                     Saldo C$
                 </th>
+                <th>
+                    Opciones
+                </th>
             </tr>
         </thead>
         <tbody>
             @{  
-                foreach (var prestamo in Model)
+                foreach (var prestamocliente in Model)
                 {
                     <tr>
-                        <td>@prestamo.Cliente</td>
-                        <td>@prestamo.Monto</td>
-                        <td>@prestamo.Interes</td>
-                        <td>@prestamo.Plazo</td>
-                        <td>@prestamo.Saldo</td>
+                        <td>
+                            
+                        </td>
+                        <td>@prestamocliente.Prestamos</td>
+
+                        <td>
+                            <a class="btn btn-info" asp-action="EditarPrestamo">Editar</a>
+                            <a class="btn btn-danger" asp-action="EliminarPrestamo">Eliminar</a>
+                        </td>
                     </tr>
                 }
             }

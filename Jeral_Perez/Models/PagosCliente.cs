@@ -5,13 +5,17 @@ using System.Threading.Tasks;
 
 namespace Jeral_Perez.Models
 {
-    public class PagosCliente
+    public class PagosClientes
     {
-        public string Cliente { get; set; }
-        public decimal TotalDeuda { get; set; }
+        public PagosClientes()
+        {
+            Clientes = new List<Cliente>();
+            Prestamos = new List<Prestamo>();
+            Pagos = new List<Pagos>();
+        }
+        public List<Cliente> Clientes { get; set; }
 
-        public decimal MontoPagado { get; set; }
-        public string FechaPago { get; set; }
-        public decimal Saldo { get; set; }
+        public List<Pagos> Pagos { get; set; }
+        public List<Prestamo> Prestamos { get; set; }
     }
 }

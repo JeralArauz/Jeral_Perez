@@ -121,8 +121,9 @@
                         <td>@cliente.Sexo</td>
                         <td>@cliente.Telefono</td>
                         <td>
-                            <a class="btn btn-info" asp-action="EditarCliente" asp-route-IdCliente="@cliente.IdCliente" >Editar</a>
+                            <a class="btn btn-info" asp-action="EditarCliente" asp-route-IdCliente="@cliente.IdCliente">Editar</a>
                             <a class="btn btn-danger" asp-action="EliminarCliente" asp-route-IdCliente="@cliente.IdCliente">Eliminar</a>
+                            <a class="btn btn-success" asp-action="AgregarPrestamo" asp-route-IdCliente="@cliente.IdCliente">Nuevo Préstamo</a>
                         </td>
                     </tr>
                 }

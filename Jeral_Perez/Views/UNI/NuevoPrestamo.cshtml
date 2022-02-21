@@ -1,5 +1,5 @@
 ﻿
-@model List<Jeral_Perez.Models.ClientePrestamo>
+@model List<Jeral_Perez.Models.Cliente>
 <h1>Registrar Nuevo Prestamo</h1>
 
 <form asp-action="GuardarPrestamo">
@@ -11,7 +11,7 @@
             @{
                 foreach (var Cliente in Model)
             {
-                <option value="@Cliente.IdCliente">@Cliente.NombreCliente</option>
+                <option value="@Cliente.IdCliente">@Cliente.Nombres @Cliente.Apellidos</option>
             }
             }
         </select>
@@ -19,7 +19,7 @@
     <div class="col-sm-6">
 
         <label class="col-form-label">Monto</label>
-        <input class="form-control" name="Monto" type="text" placeholder="Monto" />
+        <input class="form-control" name="Monto" value="" type="text" placeholder="Monto" />
 
     </div>
 

@@ -1,5 +1,5 @@
 ﻿
-@model List<Jeral_Perez.Models.ClientePrestamo>
+@model Jeral_Perez.Models.PrestamoClientes
 
 <h1>Registrar Nuevo Pago</h1>
 <form asp-action="GuardarPago">
@@ -9,9 +9,11 @@
             <label for="selectcliente">Cliente:</label>
             <select class="form-control" name="IdPrestamo" id="selectcliente">
                 @{
-                    foreach (var Cliente in Model)
+                    foreach (var prestamo in Model.Prestamos)
                     {
-                        <option value="@Cliente.IdCliente">@Cliente.NombreCliente</option>
+                        var item = Model.Clientes.Where(a => a.IdCliente == prestamo.IdCliente).FirstOrDefault();
+
+                        <option value="@item.IdCliente">@item.Nombres @item.Apellidos </option>
                     }
                 }
             </select>

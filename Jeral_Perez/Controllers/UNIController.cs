@@ -91,23 +91,13 @@ namespace Jeral_Perez.Controllers
         }
         public IActionResult NuevoPrestamo()
         {
-            List<ClientePrestamo> clientes = new List<ClientePrestamo>();
-            string Cadena = "Server=DESKTOP-LN2IU17;Database=Jeral_Perez;Trusted_Connection=True;MultipleActiveResultSets=true";
-            SqlConnection conn = new SqlConnection(Cadena);
-            conn.Open();
-            string consulta = "select IdCliente, Nombres+' '+Apellidos as Cliente from [Jeral_Perez].[dbo].[Clientes]";
-            SqlCommand cmd = new SqlCommand(consulta, conn);
-            SqlDataReader Reader = cmd.ExecuteReader();
-            while (Reader.Read())
-            {
-                ClientePrestamo cliente = new ClientePrestamo();
-                cliente.IdCliente = (int)(Reader["IdCliente"]);
-                cliente.NombreCliente = Convert.ToString(Reader["Cliente"]);
-
-                clientes.Add(cliente);
-            }
-            conn.Close();
+            List<Cliente> clientes = _context.Clientes.ToList();
             return View(clientes);
+        }
+        public IActionResult AgregarPrestamo(int IdCliente)
+        {
+            List<Cliente> cliente = _context.Clientes.Where(c => c.IdCliente == IdCliente).ToList();
+            return View("NuevoPrestamo",cliente);
         }
         public IActionResult GuardarPrestamo(Prestamo prestamo)
         {
@@ -124,53 +114,52 @@ namespace Jeral_Perez.Controllers
         {
             return View();
         }
-        public IActionResult NuevoPago()
+        public IActionResult NuevoPago(int IdPrestamo)
         {
-            List<ClientePrestamo> clientes = new List<ClientePrestamo>();
-            string Cadena = "Server=DESKTOP-LN2IU17;Database=Jeral_Perez;Trusted_Connection=True;MultipleActiveResultSets=true";
-            SqlConnection conn = new SqlConnection(Cadena);
-            conn.Open();
-            string consulta = "select p.IdPrestamo, C.Nombres+' '+C.Apellidos as Cliente from [Jeral_Perez].[dbo].[Clientes] C JOIN Prestamo P on c.IdCliente = p.IdCliente";
-            SqlCommand cmd = new SqlCommand(consulta, conn);
-            SqlDataReader Reader = cmd.ExecuteReader();
-            while (Reader.Read())
-            {
-                ClientePrestamo cliente = new ClientePrestamo();
-                cliente.IdCliente = (int)(Reader["IdPrestamo"]);
-                cliente.NombreCliente = Convert.ToString(Reader["Cliente"]);
-                clientes.Add(cliente);
-            }
-            conn.Close();
-            return View(clientes);
+            PrestamoClientes Prestamocliente = new PrestamoClientes();
+            Prestamocliente.Clientes = _context.Clientes.ToList();
+            Prestamocliente.Prestamos = _context.Prestamo.ToList();
+            return View(Prestamocliente);
+
+            //List<ClientePrestamo> clientes = new List<ClientePrestamo>();
+            //string Cadena = "Server=.;Database=Jeral_Perez;Trusted_Connection=True;MultipleActiveResultSets=true";
+            //SqlConnection conn = new SqlConnection(Cadena);
+            //conn.Open();
+            //string consulta = "select p.IdPrestamo, C.Nombres+' '+C.Apellidos as Cliente from [Jeral_Perez].[dbo].[Clientes] C JOIN Prestamo P on c.IdCliente = p.IdCliente";
+            //SqlCommand cmd = new SqlCommand(consulta, conn);
+            //SqlDataReader Reader = cmd.ExecuteReader();
+            //while (Reader.Read())
+            //{
+            //    ClientePrestamo cliente = new ClientePrestamo();
+            //    cliente.IdCliente = (int)(Reader["IdPrestamo"]);
+            //    cliente.NombreCliente = Convert.ToString(Reader["Cliente"]);
+            //    clientes.Add(cliente);
+            //}
+            //conn.Close();
+            //return View(clientes);
         }
         public IActionResult Pagos()
         {
-            List<PagosCliente> Pagos = new List<PagosCliente>();
-            string Cadena = "Server=DESKTOP-LN2IU17;Database=Jeral_Perez;Trusted_Connection=True;MultipleActiveResultSets=true";
-            SqlConnection conn = new SqlConnection(Cadena);
-            conn.Open();
-            string consulta = "SELECT C.Nombres+' '+C.Apellidos AS Cliente, p.TotalDeuda, pa.MontoPagado, Convert(varchar,pa.FechaPago, 103) as FechaPago, Pa.Saldo FROM Pagos Pa JOIN Prestamo P ON PA.IdPrestamo = P.IdPrestamo JOIN Clientes C ON P.IdCliente = C.IdCliente";
-            SqlCommand cmd = new SqlCommand(consulta, conn);
-            SqlDataReader Reader = cmd.ExecuteReader();
-            while (Reader.Read())
-            {
-                PagosCliente Pago = new PagosCliente();
-                Pago.Cliente = Reader["Cliente"].ToString();
-                Pago.TotalDeuda = (decimal)Reader["TotalDeuda"];
-                Pago.MontoPagado = (decimal)Reader["MontoPagado"];
-                Pago.FechaPago = Reader["FechaPago"].ToString();
-                Pago.Saldo = (decimal)Reader["Saldo"];
-                Pagos.Add(Pago);
-            }
-            conn.Close();
-            return View(Pagos);
+            PagosClientes Prestamocliente = new PagosClientes();
+            Prestamocliente.Clientes = _context.Clientes.ToList();
+            Prestamocliente.Prestamos = _context.Prestamo.ToList();
+            Prestamocliente.Pagos = _context.Pagos.ToList();
+            return View(Prestamocliente);
         }
         public IActionResult GuardarPago(Pagos pagos)
         {
+            Prestamo prestamo = _context.Prestamo.Where(a => a.IdPrestamo == pagos.IdPrestamo).FirstOrDefault();
             pagos.FechaPago = DateTime.Now;
             pagos.UserReg = "Admin";
-            pagos.Saldo = pagos.Saldo - pagos.MontoPagado;
+            pagos.Saldo = prestamo.Saldo - pagos.MontoPagado;
             _context.Pagos.Add(pagos);
+
+            Prestamo prestamos = _context.Prestamo.Where(a => a.IdPrestamo == pagos.IdPrestamo).FirstOrDefault();
+            prestamos.Saldo = pagos.Saldo;
+
+            if (prestamos.Saldo == 0)
+                prestamos.Estado = "Pagado";
+
             _context.SaveChanges();
             return RedirectToAction("Pagos");
         }

@@ -82,7 +82,7 @@
 </style>
 
 <div class="table-responsive" @*style="overflow-y: scroll; height: 400px"*@>
-    <table id="Clientes" class="table table-bordered header_fijo" style="background-color:darkcyan" overflow="scroll">
+    <table id="Clientes" class="table-info table-bordered header_fijo"overflow="scroll">
 
         <thead class="thead-dark" id="tableheader">
             <tr>
@@ -122,7 +122,7 @@
                         <td>@cliente.Telefono</td>
                         <td>
                             <a class="btn btn-info" asp-action="EditarCliente" asp-route-IdCliente="@cliente.IdCliente">Editar</a>
-                            <a class="btn btn-danger" asp-action="EliminarCliente" asp-route-IdCliente="@cliente.IdCliente">Eliminar</a>
+                            <a class="btn btn-danger" asp-action="EliminarCliente" asp-route-IdCliente="@cliente.IdCliente" onclick="return confirm('¿Está seguro que desea eliminar el registro?')">Eliminar</a>
                             <a class="btn btn-success" asp-action="AgregarPrestamo" asp-route-IdCliente="@cliente.IdCliente">Nuevo Préstamo</a>
                         </td>
                     </tr>

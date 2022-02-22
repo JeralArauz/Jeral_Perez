@@ -79,7 +79,7 @@
 </style>
 
 <div class="table-responsive" @*style="overflow-y: scroll; height: 400px"*@>
-    <table id="Prestamos" class="table table-bordered header_fijo" style="background-color:darkcyan" overflow="scroll">
+    <table id="Prestamos" class="table table-bordered header_fijo" style="background-color:lightblue" overflow="scroll">
 
         <thead class="thead-dark" id="tableheader">
             <tr>
@@ -101,9 +101,9 @@
                 <th>
                     Estado
                 </th>
-                @*<th>
+                <th>
                     Opciones
-                </th>*@
+                </th>
             </tr>
         </thead>
         <tbody>
@@ -123,11 +123,15 @@
                             <td>@prestamocliente.Plazo</td>
                             <td>@prestamocliente.Saldo</td>
                             <td>@prestamocliente.Estado</td>
-                            @*<td>
-                                <a class="btn btn-info" asp-action="EditarPrestamo">Editar</a>
-                                <a class="btn btn-danger" asp-action="EliminarPrestamo">Eliminar</a>
-                                <a class="btn btn-outline-danger">Nuevo Pago</a>
-                            </td>*@
+                            <td>
+                                @{
+                                    if (prestamocliente.Estado != "Pagado")
+                                    {
+                                        <a class="btn btn-outline-success" asp-action="NuevoPago" asp-route-IdPrestamo="@prestamocliente.IdPrestamo" asp-route-IdCliente="@prestamocliente.IdCliente">Nuevo Pago</a>
+                                    }
+                                }
+                                <a class="btn btn-success" asp-action="VerPagosPrestamo" asp-route-IdPrestamo="@prestamocliente.IdPrestamo" asp-route-IdCliente="@prestamocliente.IdCliente">Ver Pagos</a>
+                            </td>
                         </tr>
                 }
             }

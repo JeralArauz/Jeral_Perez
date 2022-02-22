@@ -7,13 +7,11 @@
 
         <div>
             <label for="selectcliente">Cliente:</label>
-            <select class="form-control" name="IdPrestamo" id="selectcliente">
+            <select class="form-control" id="selectcliente">
                 @{
-                    foreach (var prestamo in Model.Prestamos)
+                    foreach (var item in Model.Clientes)
                     {
-                        var item = Model.Clientes.Where(a => a.IdCliente == prestamo.IdCliente).FirstOrDefault();
-
-                        <option value="@item.IdCliente">@item.Nombres @item.Apellidos </option>
+                        <option selected value="@item.IdCliente">@item.Nombres @item.Apellidos </option>
                     }
                 }
             </select>
@@ -22,13 +20,25 @@
     <div class="col-sm-6">
 
         <label class="col-form-label">Deuda Inicial:</label>
-        <input class="form-control" type="text" placeholder="Monto" />
+        @{
+            foreach (var prestamo in Model.Prestamos)
+            {
+                <input class="form-control" type="text" value="@prestamo.TotalDeuda" placeholder="Monto" />
+                <input type="hidden" name="IdPrestamo" value="@prestamo.IdPrestamo" />
+            }
+        }
+
 
     </div>
     <div class="col-sm-6">
 
         <label class="col-form-label">Saldo Pendiente:</label>
-        <input class="form-control" type="text" name="Saldo" placeholder="Saldo" />
+        @{
+            foreach (var prestamo in Model.Prestamos)
+            {
+                <input class="form-control" type="text" value="@prestamo.Saldo" name="Saldo" placeholder="Saldo" />
+            }
+        }
 
     </div>
 
@@ -40,8 +50,9 @@
 
     </div>
     <div>
-        <input style="margin:10px" type="submit" value="Guardar" class="btn btn-success">
+        <input style="margin:10px" type="submit" @*onclick="return confirm('¿Está seguro que desea guardar el pago?')"*@ value="Guardar" class="btn btn-success">
         <input style="margin:10px" type="submit" asp-controller="UNI" asp-action="Pagos" value="Cancelar" class="btn btn-secondary mx-auto">
     </div>
+    
 </form>
 <br />

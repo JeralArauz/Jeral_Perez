@@ -114,37 +114,32 @@ namespace Jeral_Perez.Controllers
         {
             return View();
         }
-        public IActionResult NuevoPago(int IdPrestamo)
+        public IActionResult NuevoPago(int IdPrestamo, int IdCliente)
         {
             PrestamoClientes Prestamocliente = new PrestamoClientes();
-            Prestamocliente.Clientes = _context.Clientes.ToList();
-            Prestamocliente.Prestamos = _context.Prestamo.ToList();
+            Prestamocliente.Prestamos = _context.Prestamo.Where(p => p.IdPrestamo == IdPrestamo).ToList();
+            Prestamocliente.Clientes = _context.Clientes.Where(c => c.IdCliente == IdCliente).ToList();
             return View(Prestamocliente);
-
-            //List<ClientePrestamo> clientes = new List<ClientePrestamo>();
-            //string Cadena = "Server=.;Database=Jeral_Perez;Trusted_Connection=True;MultipleActiveResultSets=true";
-            //SqlConnection conn = new SqlConnection(Cadena);
-            //conn.Open();
-            //string consulta = "select p.IdPrestamo, C.Nombres+' '+C.Apellidos as Cliente from [Jeral_Perez].[dbo].[Clientes] C JOIN Prestamo P on c.IdCliente = p.IdCliente";
-            //SqlCommand cmd = new SqlCommand(consulta, conn);
-            //SqlDataReader Reader = cmd.ExecuteReader();
-            //while (Reader.Read())
-            //{
-            //    ClientePrestamo cliente = new ClientePrestamo();
-            //    cliente.IdCliente = (int)(Reader["IdPrestamo"]);
-            //    cliente.NombreCliente = Convert.ToString(Reader["Cliente"]);
-            //    clientes.Add(cliente);
-            //}
-            //conn.Close();
-            //return View(clientes);
         }
         public IActionResult Pagos()
         {
-            PagosClientes Prestamocliente = new PagosClientes();
-            Prestamocliente.Clientes = _context.Clientes.ToList();
-            Prestamocliente.Prestamos = _context.Prestamo.ToList();
-            Prestamocliente.Pagos = _context.Pagos.ToList();
-            return View(Prestamocliente);
+            PagosClientes Pagoscliente = new PagosClientes();
+            Pagoscliente.Clientes = _context.Clientes.ToList();
+            Pagoscliente.Prestamos = _context.Prestamo.ToList();
+            Pagoscliente.Pagos = _context.Pagos.ToList();
+
+
+            return View(Pagoscliente);
+        }
+        public IActionResult VerPagosPrestamo(int IdCliente, int IdPrestamo)
+        {
+            PagosClientes Pagoscliente = new PagosClientes();
+            Pagoscliente.Clientes = _context.Clientes.Where(c => c.IdCliente == IdCliente).ToList();
+            Pagoscliente.Prestamos = _context.Prestamo.Where(pr => pr.IdPrestamo == IdPrestamo).ToList();
+            Pagoscliente.Pagos = _context.Pagos.Where(pa => pa.IdPrestamo == IdPrestamo).ToList();
+
+
+            return View("Pagos", Pagoscliente);
         }
         public IActionResult GuardarPago(Pagos pagos)
         {
@@ -161,11 +156,8 @@ namespace Jeral_Perez.Controllers
                 prestamos.Estado = "Pagado";
 
             _context.SaveChanges();
+           
             return RedirectToAction("Pagos");
-        }
-        public IActionResult Test()
-        {
-            return View("Postgrado");
         }
     }
 }

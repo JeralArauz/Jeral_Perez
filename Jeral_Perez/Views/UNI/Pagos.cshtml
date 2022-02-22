@@ -78,8 +78,8 @@
     }
 </style>
 
-<div class="table-responsive" @*style="overflow-y: scroll; height: 400px"*@>
-    <table id="Pagos" class="table table-bordered header_fijo" style="background-color:darkcyan" overflow="scroll">
+<div class="table-responsive" style="overflow-y: scroll; height: 600px">
+    <table id="Pagos" class="table-info table-bordered header_fijo" overflow="scroll">
 
         <thead class="thead-dark" id="tableheader">
             <tr>
@@ -105,16 +105,16 @@
                 foreach (var item in Model.Pagos)
                 {
                     <tr>
-                         <td>
+                        <td>
                             @{
-                                 var Prestamo = Model.Prestamos.Where(a => a.IdPrestamo == item.IdPrestamo).FirstOrDefault();
-                                 var cliente = Model.Clientes.Where(b => b.IdCliente == Prestamo.IdCliente).FirstOrDefault();
-                                 <span>@(cliente.Nombres + " " + cliente.Apellidos)</span>
-                             }
-                         </td>
+                                var Prestamo = Model.Prestamos.Where(a => a.IdPrestamo == item.IdPrestamo).FirstOrDefault();
+                                var cliente = Model.Clientes.Where(b => b.IdCliente == Prestamo.IdCliente).FirstOrDefault();
+                                <span>@(cliente.Nombres + " " + cliente.Apellidos)</span>
+                            }
+                        </td>
                         <td>@Prestamo.TotalDeuda</td>
                         <td>@item.MontoPagado</td>
-                        <td>@item.FechaPago</td>
+                        <td>@item.FechaPago.ToShortDateString()</td>
                         <td>@item.Saldo</td>
                     </tr>
                 }
@@ -151,7 +151,7 @@
 <h1></h1>
 
 <div>
-    <a class="btn btn-outline-success" asp-controller="UNI" asp-action="NuevoPago">Nuevo Pago</a>
+    <a class="btn btn-outline-success" asp-controller="UNI" asp-action="Prestamos">Nuevo Pago</a>
     <a class="btn btn-outline-danger" asp-controller="HOME" asp-action="Index">Regresar</a>
 </div>
 <h1></h1>

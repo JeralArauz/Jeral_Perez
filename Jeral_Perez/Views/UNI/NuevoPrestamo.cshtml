@@ -39,7 +39,7 @@
 
     <div class="col-md-6">
         <div>
-            <input type="submit" value="Guardar" class="btn btn-success ">
+            <input type="submit" value="Guardar" onclick="return confirm('¿Esta Seguro que desea guardar el prestamo?')" class="btn btn-success ">
             <input style="margin:10px" type="submit" asp-action="Prestamos" value="Cancelar" class="btn btn-secondary mx-auto ">
         </div>
     </div>

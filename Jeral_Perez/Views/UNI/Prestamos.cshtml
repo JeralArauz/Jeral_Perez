@@ -8,9 +8,7 @@
     <h1 class="text-center table-bordered ">Listado de Prestamos</h1>
 </div>
 <td colspan="6">
-    @*<input id="buscar" type="text" onkeyup="searchTable()" class="form-control" placeholder="Buscar Clientes" />*@
     <div class="inner-addon right-addon">
-        @*<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">*@
         <i class="glyphicon glyphicon-search"></i>
         <input id="buscar" type="text" onkeyup="searchTable()" class="form-control" placeholder="Buscar">
     </div>
@@ -78,7 +76,7 @@
     }
 </style>
 
-<div class="table-responsive" @*style="overflow-y: scroll; height: 400px"*@>
+<div class="table-responsive"  style="overflow-y: scroll; height: 530px">
     <table id="Prestamos" class="table table-bordered header_fijo" style="background-color:lightblue" overflow="scroll">
 
         <thead class="thead-dark" id="tableheader">
@@ -124,13 +122,13 @@
                             <td>@prestamocliente.Saldo</td>
                             <td>@prestamocliente.Estado</td>
                             <td>
+                                <a class="btn btn-success" asp-action="VerPagosPrestamo" asp-route-IdPrestamo="@prestamocliente.IdPrestamo" asp-route-IdCliente="@prestamocliente.IdCliente">Ver Pagos</a>
                                 @{
                                     if (prestamocliente.Estado != "Pagado")
                                     {
                                         <a class="btn btn-outline-success" asp-action="NuevoPago" asp-route-IdPrestamo="@prestamocliente.IdPrestamo" asp-route-IdCliente="@prestamocliente.IdCliente">Nuevo Pago</a>
                                     }
                                 }
-                                <a class="btn btn-success" asp-action="VerPagosPrestamo" asp-route-IdPrestamo="@prestamocliente.IdPrestamo" asp-route-IdCliente="@prestamocliente.IdCliente">Ver Pagos</a>
                             </td>
                         </tr>
                 }

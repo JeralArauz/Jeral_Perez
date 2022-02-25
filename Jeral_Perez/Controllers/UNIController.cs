@@ -102,7 +102,7 @@ namespace Jeral_Perez.Controllers
         public IActionResult GuardarPrestamo(Prestamo prestamo)
         {
             prestamo.FechaReg = DateTime.Now;
-            prestamo.TotalDeuda = prestamo.Monto+ ((prestamo.Monto * prestamo.Interes)/100);
+            prestamo.TotalDeuda = prestamo.Monto + ((prestamo.Monto * prestamo.Interes)/100);
             prestamo.Saldo = prestamo.TotalDeuda;
             prestamo.Estado = "Activo";
             prestamo.UserReg = "Admin";

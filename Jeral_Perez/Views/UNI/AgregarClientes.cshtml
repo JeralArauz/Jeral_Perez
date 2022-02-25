@@ -1,19 +1,19 @@
 ﻿
-<h1>Registrar Nuevo Cliente</h1>
+<h1 style="font-family:Constantia; font-size:xx-large; color:lightseagreen; text-align:justify">Registrar Nuevo Cliente</h1>
 
-<form asp-action="RegistrarClienteNew">
+<form asp-action="RegistrarClienteNew" style="font-family:Constantia; font-size:large; color:lightseagreen">
 <div class="row">
 
 
         <div class="col-sm-6">
 
-            <label class ="col-form-label">Nombres</label>
+            <label class ="col-form-label" >Nombres:</label>
             <input class="form-control" name="Nombres" type = "text" placeholder="Nombres"/>
             
         </div>
         <div class="col-sm-6">
 
-            <label class ="col-form-label">Apellidos</label>
+            <label class ="col-form-label">Apellidos:</label>
             <input class="form-control" name="Apellidos"  type = "text" placeholder="Apellidos"/>
 
         </div>
@@ -22,13 +22,13 @@
 <div class="row">
            <div class="col-sm-6">
 
-            <label class ="col-form-label">Cédula</label>
+            <label class ="col-form-label" >Cédula:</label>
             <input class="form-control" name="Cedula" type = "text" placeholder="Número de Identificación"/>
             
         </div>
          <div class="col-sm-6">
 
-            <label class ="col-form-label">Dirección</label>
+            <label class ="col-form-label">Dirección:</label>
             <input class="form-control" name="Direccion" type = "text" placeholder="Ecriba la Dirección domiciliar"/>
 
         </div>
@@ -36,12 +36,12 @@
     <div class="row">
         <div class="col-sm-6">
 
-            <label class ="col-form-label">Teléfono</label>
+            <label class ="col-form-label" >Teléfono:</label>
             <input class="form-control" name="Telefono" type = "text" placeholder="Número Teléfono o Convencional"/>
 
         </div>
     <div class="col-md-6">
-                            <label for="selectsexo">Sexo:</label>
+                            <label for="selectsexo" >Sexo:</label>
                             <select class="form-control" name="Sexo" id="selectsexo">
                                 <option value="" disabled="" selected="">Seleccione</option>
                                 <option value="M">Masculino</option>

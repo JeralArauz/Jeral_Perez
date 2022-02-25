@@ -2,7 +2,7 @@
 @model List<Jeral_Perez.Models.Cliente>
 <h1>Registrar Nuevo Prestamo</h1>
 
-<form asp-action="GuardarPrestamo">
+<form asp-action="GuardarPrestamo" style="font-family:Constantia; font-size:large; color:lightseagreen">
 
 
     <div class="col-md-6">
@@ -16,11 +16,9 @@
             }
         </select>
     </div>
-    <div class="col-sm-6">
-
-        <label class="col-form-label">Monto</label>
-        <input class="form-control" name="Monto" value="" type="text" placeholder="Monto" />
-
+    <div class="col-md-6">
+            <label class="col-form-label">Monto</label>
+            <input class="form-control" name="Monto" value="" type="text" placeholder="Monto" />
     </div>
 
 

@@ -1,15 +1,11 @@
 ﻿
-//Definir el Evento Click para el boton Guardar
+$("#guardarp").click( function () {
+    var IdCliente = $(".cliente-prestamo").val();
+    var Monto = $(".Monto-prestamo").val();
+    var Interes = $(".interes-prestamo").val();
+    var Plazo = $(".plazo-prestamo").val();
 
-$("#btnguardar").click( function () {
-    var nombrecliente = $(".nombre-cliente").val();
-    var apellidos = $(".apellidos-cliente").val();
-    var cedula = $(".cedula-cliente").val();
-    var direccion = $(".direccion-cliente").val();
-    var telefono = $(".telefono-cliente").val();
-    var sexo = $(".sexo-cliente").val();
-
-    if (nombrecliente == "" || apellidos == "" || cedula == "" || direccion == "" || telefono == "" || sexo == "") {
+    if (IdCliente == "" || Monto == "" || Interes == "" || Plazo == "") {
         Swal.fire({
             position: 'top-end',
             icon: 'error',
@@ -21,15 +17,13 @@ $("#btnguardar").click( function () {
     }
     else {
         var xhr = $.ajax({
-            url: "RegistrarClienteNew",
+            url="GuardarPrestamo",
             type: "POST",
             data: {
-                "Nombres": nombrecliente,
-                "Apellidos": apellidos,
-                "Cedula": cedula,
-                "Direccion": direccion,
-                "Telefono": telefono,
-                "Sexo": sexo
+                "IdCliente": IdCliente,
+                "Monto": Monto,
+                "Interes": Interes,
+                "Plazo": Plazo
             }
         });
         xhr.done(function (data) {
@@ -41,12 +35,10 @@ $("#btnguardar").click( function () {
                 timer: 1500
             })
             //alert("Datos guardados correctamente");
-            $(".nombre-cliente").val("");
-            $(".apellidos-cliente").val("");
-            $(".cedula-cliente").val("");
-            $(".direccion-cliente").val("");
-            $(".telefono-cliente").val("");
-            $(".sexo-cliente").val("");
+            $(".cliente-prestamo").val("");
+            $(".Monto-prestamo").val("");
+            $(".interes-prestamo").val("");
+            $(".plazo-prestamo").val("");
         });
         xhr.fail(function () {
             Swal.fire({
@@ -59,4 +51,5 @@ $("#btnguardar").click( function () {
             })
         });
     }
+
 });

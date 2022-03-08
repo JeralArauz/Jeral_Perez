@@ -7,12 +7,12 @@
 <div class="alert-dark">
     <h1 class="text-center table-bordered ">Listado de Prestamos</h1>
 </div>
-<td colspan="6">
+@*<td colspan="6">
     <div class="inner-addon right-addon">
         <i class="glyphicon glyphicon-search"></i>
         <input id="buscar" type="text" onkeyup="searchTable()" class="form-control" placeholder="Buscar">
     </div>
-</td>
+</td>*@
 <style>
     * {
         box-sizing: border-box;
@@ -76,7 +76,7 @@
     }
 </style>
 
-<div class="table-responsive"  style="overflow-y: scroll; height: 530px">
+<div class="table-responsive" @*style="overflow-y: scroll; height: 530px"*@>
     <table id="Prestamos" class="table table-bordered header_fijo" style="background-color:lightblue" overflow="scroll">
 
         <thead class="thead-dark" id="tableheader">
@@ -108,59 +108,62 @@
             @{
                 foreach (var prestamocliente in Model.Prestamos)
                 {
-                        <tr>
-                            <td>
-                                @{
-                                    var cliente = Model.Clientes.Where(a => a.IdCliente == prestamocliente.IdCliente).FirstOrDefault();
+                    <tr>
+                        <td>
+                            @{
+                                var cliente = Model.Clientes.Where(a => a.IdCliente == prestamocliente.IdCliente).FirstOrDefault();
 
-                                    <span>@(cliente.Nombres + " " + cliente.Apellidos)</span>
+                                <span>@(cliente.Nombres + " " + cliente.Apellidos)</span>
+                            }
+                        </td>
+                        <td>@prestamocliente.Monto</td>
+                        <td>@prestamocliente.Interes</td>
+                        <td>@prestamocliente.Plazo</td>
+                        <td>@prestamocliente.Saldo</td>
+                        <td>@prestamocliente.Estado</td>
+                        <td>
+                            <a class="btn btn-success" asp-action="VerPagosPrestamo" asp-route-IdPrestamo="@prestamocliente.IdPrestamo" asp-route-IdCliente="@prestamocliente.IdCliente">Ver Pagos</a>
+                            @{
+                                if (prestamocliente.Estado != "Pagado")
+                                {
+                                    <a class="btn btn-outline-success" asp-action="NuevoPago" asp-route-IdPrestamo="@prestamocliente.IdPrestamo" asp-route-IdCliente="@prestamocliente.IdCliente">Nuevo Pago</a>
                                 }
-                            </td>
-                            <td>@prestamocliente.Monto</td>
-                            <td>@prestamocliente.Interes</td>
-                            <td>@prestamocliente.Plazo</td>
-                            <td>@prestamocliente.Saldo</td>
-                            <td>@prestamocliente.Estado</td>
-                            <td>
-                                <a class="btn btn-success" asp-action="VerPagosPrestamo" asp-route-IdPrestamo="@prestamocliente.IdPrestamo" asp-route-IdCliente="@prestamocliente.IdCliente">Ver Pagos</a>
-                                @{
-                                    if (prestamocliente.Estado != "Pagado")
-                                    {
-                                        <a class="btn btn-outline-success" asp-action="NuevoPago" asp-route-IdPrestamo="@prestamocliente.IdPrestamo" asp-route-IdCliente="@prestamocliente.IdCliente">Nuevo Pago</a>
-                                    }
-                                }
-                            </td>
-                        </tr>
+                            }
+                        </td>
+                    </tr>
                 }
             }
         </tbody>
     </table>
-    
-    <script>
-        function searchTable() {
-            var input, filter, table, tr, td, i;
-            input = document.getElementById("buscar");
-            filter = input.value.toUpperCase();
-            table = document.getElementById("Prestamos");
-            tr = table.getElementsByTagName("tr");
+    @section Scripts{
+        <script>
+            $('#Prestamos').DataTable();
+                //function searchTable() {
+                //    var input, filter, table, tr, td, i;
+                //    input = document.getElementById("buscar");
+                //    filter = input.value.toUpperCase();
+                //    table = document.getElementById("Prestamos");
+                //    tr = table.getElementsByTagName("tr");
 
-            // Loop through all table rows, and hide those who don't match the search query
-            for (i = 0; i < tr.length; i++) {
-                td = tr[i].getElementsByTagName("td");
-                for (j = 0; j < td.length; j++) {
-                    let tdata = td[j];
-                    if (tdata) {
-                        if (tdata.innerHTML.toUpperCase().indexOf(filter) > -1) {
-                            tr[i].style.display = "";
-                            break;
-                        } else {
-                            tr[i].style.display = "none";
-                        }
-                    }
-                }
-            }
-        }
-    </script>
+                //    // Loop through all table rows, and hide those who don't match the search query
+                //    for (i = 0; i < tr.length; i++) {
+                //        td = tr[i].getElementsByTagName("td");
+                //        for (j = 0; j < td.length; j++) {
+                //            let tdata = td[j];
+                //            if (tdata) {
+                //                if (tdata.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                //                    tr[i].style.display = "";
+                //                    break;
+                //                } else {
+                //                    tr[i].style.display = "none";
+                //                }
+                //            }
+                //        }
+                //    }
+                //}
+        </script>
+    }
+
 </div>
 <h1></h1>
 

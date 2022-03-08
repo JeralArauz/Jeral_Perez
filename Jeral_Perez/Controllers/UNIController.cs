@@ -26,7 +26,11 @@ namespace Jeral_Perez.Controllers
         {
             return View();
         }
-        
+        public IActionResult ClientesP()
+        {
+            List<Cliente> clientes = _context.Clientes.ToList();
+            return View(clientes);
+        }
         public IActionResult Clientes()
         {
             List<Cliente> clientes = _context.Clientes.ToList();

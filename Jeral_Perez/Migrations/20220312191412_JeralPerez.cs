@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Jeral_Perez.Migrations
 {
-    public partial class CrediGestion18022021 : Migration
+    public partial class JeralPerez : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

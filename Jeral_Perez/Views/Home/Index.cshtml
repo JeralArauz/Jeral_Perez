@@ -10,6 +10,12 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <style>
+        body {
+                  margin: 0;
+                  padding: 0;
+                  background-color: #67a2b8;
+                  height: 100vh;
+             }
               .person {
                 border: 10px solid transparent;
                 margin-bottom: 25px;
@@ -17,18 +23,16 @@
                 height: 50%;
                 opacity: 0.7;
               }
-              .person:hover {
-                border-color: #f1f1f1;
-              }
+              
               .carousel-inner img {
                 -webkit-filter: grayscale(90%);
                 filter: grayscale(60%); /* make all photos black and white */
-                width: 100%; /* Set width to 100% */
+                width: 90%; /* Set width to 100% */
                 margin: auto;
               }
-              .carousel-caption h3 {
+            /*  .carousel-caption h3 {
                 color: #fff !important;
-              }
+              }*/
 
     </style>
 </head>
@@ -48,7 +52,7 @@
                 <div class="carousel-inner" role="listbox">
                     <div class="item active">
                         <a asp-controller="UNI" asp-action="Clientes">
-                            <img src="~/Images/clien.jpg" width="500" height="300">
+                            <img src="~/Images/clien.jpg" width="600" height="300">
                         </a>
                         <div class="carousel-caption">
                             <h3>Clientes</h3>
@@ -58,7 +62,7 @@
 
                     <div class="item">
                         <a asp-controller="UNI" asp-action="Prestamos">
-                            <img src="~/Images/pag.png" width="500" height="300">
+                            <img src="~/Images/pag.png" width="600" height="300">
                         </a>
                         <div class="carousel-caption">
                             <h3>Prestamos</h3>
@@ -68,7 +72,7 @@
 
                     <div class="item">
                         <a asp-controller="UNI" asp-action="Pagos">
-                            <img src="~/Images/pagos12.jpg" width="500" height="300">
+                            <img src="~/Images/pagos12.jpg" width="600" height="300">
                         </a>
                             <div class="carousel-caption">
                             <h3>Pagos</h3>

@@ -1,5 +1,5 @@
 ﻿
-$("#guardarp").click( function () {
+$(".guardarp").click( function () {
     var IdCliente = $(".cliente-prestamo").val();
     var Monto = $(".Monto-prestamo").val();
     var Interes = $(".interes-prestamo").val();

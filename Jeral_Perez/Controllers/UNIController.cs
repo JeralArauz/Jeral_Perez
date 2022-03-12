@@ -36,6 +36,7 @@ namespace Jeral_Perez.Controllers
             List<Cliente> clientes = _context.Clientes.ToList();
             return View(clientes);
         }
+
         public IActionResult AgregarClientes()
         {
             return View();

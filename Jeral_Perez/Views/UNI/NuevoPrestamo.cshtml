@@ -1,8 +1,15 @@
 ﻿
 @model List<Jeral_Perez.Models.Cliente>
 <h1 style="font-family:Constantia; font-size:xx-large; color:lightseagreen; text-align:justify">Registrar Nuevo Prestamo</h1>
-
-<form asp-action="GuardarPrestamo" style="font-family:Constantia; font-size:large; color:lightseagreen">
+<style>
+     body {
+                  margin: 0;
+                  padding: 0;
+                  background-color: #67a2b8;
+                  height: 100vh;
+             }
+</style>
+<form asp-action="GuardarPrestamo" style="font-family:Constantia; font-size:large;">
 
 
     <div class="col-md-6">
@@ -38,7 +45,7 @@
     <div class="col-md-6">
         <div>
             <input style="margin:10px" type="submit" asp-action="Prestamos" value="Cancelar" class="btn btn-secondary mx-auto ">
-            <a id="guardarp" href="javascrip:void(0);" class="btn btn-success">Guardar</a>
+            <a id="guardarp" href="javascrip:void(0);" class="btn btn-success guardar-p">Guardar</a>
         </div>
     </div>
 </form>
